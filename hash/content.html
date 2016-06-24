@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>招贤纳士-详细页面</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script src="js/data.js"></script>
+<script src="../$_1.0.js" type="text/javascript" charset="utf-8"></script>
+<script>
+window.onload=function(){
+	var leftUl = $('ul',$('.left')[0])[0];
+	var lis = leftUl.children;
+	
+	console.log(aData);
+	var list = aData.list;
+	//生成左侧li
+	for(var i = 0; i < list.length; i++){
+		leftUl.innerHTML += '<li><a href="list.html?s='+list[i].lx+'">'+list[i].text+'</a></li>';
+	}
+	//判断search值 改变arr
+	var search = document.location.search.split('=')[1];
+	var json = '';
+	var arr = ['sh','xy'];
+	if(search){
+		for(var i = 0; i < list.length; i++){
+			if(search == list[i].lx){
+				lis[i].className = 'focus';
+				json = aData[arr[i]];
+			}
+		}
+	}else{
+		lis[0].className = 'focus';
+		json = aData[arr[0]];
+	}
+	
+		console.log(json.text[2].zw);
+	//渲染详情
+	var info = $('.info',$('.right')[0])[0];
+	var html = '';
+	console.log(json);
+	function Fn(num){
+		console.log(json.text[num])
+		html = '';
+		html += '<h2>'+json.text[num].zw+'</h2>'+
+        '<div>'+
+          '<span class="l">招聘公司：'+json.text[num].gs+'>></span>'+
+          '<span>公司性质：'+json.text[num].xz+'</span>'+
+          '<span class="l">职位性质：'+json.text[num].gz+'</span>'+
+          '<span>工作地点：'+json.text[num].dd+'</span>'+
+          '<span class="l">工作经验：'+json.text[num].jy+'</span>'+
+          '<span>学历要求：'+json.text[num].xl+'</span>'+
+          '<span class="l">招聘人数：'+json.text[num].rs+'人</span>'+
+          '<span>薪资待遇：'+json.text[num].dy+'</span>'+
+          '<span class="l">发布日期：'+json.text[num].sj[0]+'-'+json.text[num].sj[1]+'-'+json.text[num].sj[2]+'</span>'+
+          '<span>招聘类型：'+json.text[num].lx+'</span>'+
+        '</div>'+
+        '<div class="clear"></div>';
+        var jsonInfo = json.text[num].info;
+        console.log(jsonInfo);
+        for(var i = 0; i < jsonInfo.length; i++){
+        	html += '<dl><dt>'+jsonInfo[i].t+'</dt>';
+        	for(var j = 0; j < jsonInfo[i].l.length; j++){
+        		html += '<dd>'+jsonInfo[i].l[j]+'</dd>';
+        	}
+        	html += '</dl>';
+        }
+        html += '<p>有意者请投递简历至 '+aData.email+'</p>';
+        info.innerHTML = html;
+	}
+	var hash = window.location.hash.split('=')[1];
+	console.log(hash)
+	Fn(hash);
+};
+</script>
+</head>
+
+<body>
+  <div id="wrap">
+  	<div class="left">
+    	<h2>招贤纳士</h2>
+      <ul>
+      	<!--<li class="focus"><a href="javascript:;">社会招聘</a></li>
+      	<li><a href="javascript:;">校园招聘</a></li>-->
+      </ul>
+    </div>
+  	<div class="right">
+    	<div class="title">
+      	<img src="img/shzp.gif" />
+      </div>
+      <div class="info content">
+        <!-- <h2>测试工程师【社会招聘】</h2>
+        <div>
+          <span class="l">招聘公司：北京智信创通信息技术有限公司查看公司地理位置>></span>
+          <span>公司性质：股份制公司</span>
+          <span class="l">职位性质：全职</span>
+          <span>工作地点：上海</span>
+          <span class="l">工作经验：3年以上</span>
+          <span>学历要求：本科及以上</span>
+          <span class="l">招聘人数：2人</span>
+          <span>薪资待遇：面议</span>
+          <span class="l">发布日期：2013-7-30</span>
+          <span>招聘类型：社会招聘</span>
+        </div>
+        <div class="clear"></div>
+        <dl>
+          <dt>工作职责：</dt>
+          <dd>从事计算机软件的测试工作。</dd>
+        </dl>
+        <dl>
+          <dt>岗位要求：</dt>
+          <dd>1.计算机或相关专业本科以上学历；</dd>
+          <dd>2.从事软件测试工作3年及以上；</dd>
+          <dd>3.具备良好的沟通能力和快速学习能力；</dd>
+          <dd>4.精通测试策略和方法、测试用例设计；</dd>
+          <dd>5.熟悉DB2、AIX等平台的基本操作；</dd>
+          <dd>6.具备2年以上金融IT行业经验，特别是有金融行业相关业务的测试或者开发工作经验者优先。</dd>
+        </dl>
+        <p>有意者请投递简历至 liuyajuan@fulan.com.cn</p> -->
+      </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+</body>
+</html>
